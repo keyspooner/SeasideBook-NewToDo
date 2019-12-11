@@ -64,17 +64,27 @@ ToDoListView2 >> renderContentOn3: html [
 
 { #category : #rendering }
 ToDoListView2 >> renderContentOn: html [
-	html heading level: 1; with: 'To-do List'.
-	html form: [ 
-	html textInput
-		attributeAt: 'placeholder' put: 'Add New Todo';
-       callback: [:inputValue | 
-			self model add: (ToDoItem new 
-			title: inputValue;
-			due: '12/15/2019' asDate;
-			done: false)].
-	html unorderedList: [ self renderItemsOn: html ]]
-	
+	html div
+		id: 'container';
+		with: [ html heading
+				level: 1;
+				with: [ html text: 'To-do List'.
+					html span
+						id: 'toggle-form';
+						with: [ (html
+								tag: 'i')
+								class: 'fa fa-plus' ] ].
+			html
+				form: [ html textInput
+						attributeAt: 'placeholder' put: 'Add New Todo';
+						callback: [ :inputValue | 
+							self model
+								add:
+									(ToDoItem new
+										title: inputValue;
+										due: '12/15/2019' asDate;
+										done: false) ].
+					html unorderedList: [ self renderItemsOn: html ] ] ]
 ]
 
 { #category : #rendering }
